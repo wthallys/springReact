@@ -18,11 +18,17 @@ function SalesCard() {
   const [sales, setSales] = useState<Sale[]>([])
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/sales`)
+
+    const dmin = minimumDate.toISOString().slice(0, 10)
+    const dmax = maximumDate.toISOString().slice(0, 10)
+    
+    console.log(dmin)
+
+    axios.get(`${BASE_URL}/sales?minimumDate=${dmin}&maximumDate=${dmax}`)
       .then(response => {
         setSales(response.data.content) //atualizar o useState com o valor que volta da api
       })
-  }, [])
+  }, [minimumDate, maximumDate])
 
 
   return (
